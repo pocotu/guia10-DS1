@@ -9,4 +9,4 @@ INSERT INTO productos (nombre, precio, stock) VALUES ('Disco Duro Externo 1TB', 
 INSERT INTO productos (nombre, precio, stock) VALUES ('Webcam Logitech C920', 70.00, 25);
 INSERT INTO productos (nombre, precio, stock) VALUES ('Router Wi-Fi TP-Link', 45.00, 35);
 INSERT INTO productos (nombre, precio, stock) VALUES ('Auriculares Bluetooth Sony', 90.00, 45);
-INSERT INTO productos (nombre, precio, stock) VALUES ('Tablet Samsung Galaxy Tab', 300.00, 20); 
+INSERT INTO productos (nombre, precio, stock) VALUES ('Tablet Samsung Galaxy Tab', 300.00, 20);
