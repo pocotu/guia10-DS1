@@ -6,11 +6,12 @@ const Sidebar = () => {
   const location = useLocation();
 
   const menuItems = [
-    { path: '/', label: 'Dashboard', icon: 'bi-speedometer2' },
+    { path: '/dashboard', label: 'Dashboard', icon: 'bi-speedometer2' },
     { path: '/productos', label: 'Productos', icon: 'bi-box' },
     { path: '/clientes', label: 'Clientes', icon: 'bi-people' },
     { path: '/ventas', label: 'Ventas', icon: 'bi-cart' },
-    { path: '/usuarios', label: 'Usuarios', icon: 'bi-person-badge' }
+    { path: '/usuarios', label: 'Usuarios', icon: 'bi-person-badge' },
+    { path: '/login', label: 'Iniciar Sesión', icon: 'bi-box-arrow-in-right' }
   ];
 
   return (

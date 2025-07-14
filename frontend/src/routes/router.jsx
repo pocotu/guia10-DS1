@@ -5,8 +5,9 @@ import Productos from '../pages/Productos';
 import Clientes from '../pages/Clientes';
 import Ventas from '../pages/Ventas';
 import Usuarios from '../pages/Usuarios';
-import Layout from '../components/Layout';
+import MainLayout from '../layouts/MainLayout';
 import ProtectedRoute from './ProtectedRoute';
+import RootRedirect from './RootRedirect';
 
 // Router principal siguiendo el principio de responsabilidad única
 // Su única responsabilidad es definir y manejar las rutas de la aplicación
@@ -14,54 +15,57 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Ruta pública para login */}
+        {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         
-        {/* Rutas protegidas con Layout */}
-        <Route path="/" element={
-          <ProtectedRoute>
-            <Layout>
-              <Navigate to="/dashboard" replace />
-            </Layout>
-          </ProtectedRoute>
+        {/* Ruta de demostración del MainLayout (sin autenticación) */}
+        <Route path="/demo" element={
+          <MainLayout>
+            <Dashboard />
+          </MainLayout>
         } />
+        
+        {/* Ruta raíz - redirige según estado de autenticación */}
+        <Route path="/" element={<RootRedirect />} />
+        
+        {/* Rutas protegidas con MainLayout */}
         
         <Route path="/dashboard" element={
           <ProtectedRoute>
-            <Layout>
+            <MainLayout>
               <Dashboard />
-            </Layout>
+            </MainLayout>
           </ProtectedRoute>
         } />
         
         <Route path="/productos" element={
           <ProtectedRoute>
-            <Layout>
+            <MainLayout>
               <Productos />
-            </Layout>
+            </MainLayout>
           </ProtectedRoute>
         } />
         
         <Route path="/clientes" element={
           <ProtectedRoute>
-            <Layout>
+            <MainLayout>
               <Clientes />
-            </Layout>
+            </MainLayout>
           </ProtectedRoute>
         } />
         
         <Route path="/ventas" element={
           <ProtectedRoute>
-            <Layout>
+            <MainLayout>
               <Ventas />
-            </Layout>
+            </MainLayout>
           </ProtectedRoute>
         } />
         <Route path="/usuarios" element={
           <ProtectedRoute>
-            <Layout>
+            <MainLayout>
               <Usuarios />
-            </Layout>
+            </MainLayout>
           </ProtectedRoute>
         } />
         

@@ -2,10 +2,10 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-// Componente ProtectedRoute siguiendo SRP e Inversión de Dependencias
-// Su única responsabilidad es verificar la autenticación y proteger rutas
-// Depende de la abstracción AuthContext en lugar de localStorage directamente
-const ProtectedRoute = ({ children }) => {
+// Componente RootRedirect siguiendo SRP
+// Su única responsabilidad es manejar la redirección desde la ruta raíz
+// según el estado de autenticación del usuario
+const RootRedirect = () => {
   const { isAuthenticated, isLoading } = useAuth();
   
   // Mostrar loading mientras se verifica la autenticación
@@ -19,13 +19,11 @@ const ProtectedRoute = ({ children }) => {
     );
   }
   
-  // Si no está autenticado, redirigir al login
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  // Si está autenticado, mostrar el contenido protegido
-  return children;
+  // Redirigir según el estado de autenticación
+  // Si está autenticado va al dashboard, si no va a la demo del MainLayout
+  return isAuthenticated ? 
+    <Navigate to="/dashboard" replace /> : 
+    <Navigate to="/demo" replace />;
 };
 
-export default ProtectedRoute;
+export default RootRedirect;

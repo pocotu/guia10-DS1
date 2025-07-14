@@ -1,11 +1,35 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthLayout from '../layouts/AuthLayout';
+import { useAuth } from '../context/AuthContext';
+import AuthService from '../services/AuthService';
 
 // Componente Login siguiendo SRP - solo maneja la autenticación de usuarios
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
+
+  // Redirigir si ya está autenticado (siguiendo SRP)
+  React.useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [isAuthenticated, authLoading, navigate]);
+
+  // Mostrar loading mientras se verifica la autenticación inicial
+  if (authLoading) {
+    return (
+      <AuthLayout>
+        <div className="d-flex justify-content-center align-items-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+      </AuthLayout>
+    );
+  }
 
   // Principio de responsabilidad única: esta función solo maneja el cambio de inputs
   const handleInputChange = (e) => {
@@ -22,31 +46,24 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      // Simulación de autenticación
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Usar AuthService para autenticación (Inversión de Dependencias)
+      const userData = await AuthService.authenticate(credentials);
       
-      if (credentials.username && credentials.password) {
-        localStorage.setItem('isAuthenticated', 'true');
-        navigate('/dashboard');
-      } else {
-        alert('Por favor ingrese credenciales válidas');
-      }
+      // Actualizar contexto con los datos del usuario
+      await login(userData);
+      
+      // Redirigir al dashboard
+      navigate('/dashboard');
     } catch (error) {
       console.error('Error en login:', error);
+      alert(error.message || 'Error al iniciar sesión');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      width: '100vw',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#f8f9fa'
-    }}>
+    <AuthLayout>
       <div className="card shadow-lg border-0" style={{ width: '100%', maxWidth: '400px' }}>
         <div className="card-body p-5">
           <div className="text-center mb-4">
@@ -99,7 +116,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </div>
+    </AuthLayout>
   );
 };
 
