@@ -20,10 +20,9 @@ const RootRedirect = () => {
   }
   
   // Redirigir según el estado de autenticación
-  // Si está autenticado va al dashboard, si no va a la demo del MainLayout
   return isAuthenticated ? 
     <Navigate to="/dashboard" replace /> : 
-    <Navigate to="/demo" replace />;
+    <Navigate to="/login" replace />;
 };
 
 export default RootRedirect;

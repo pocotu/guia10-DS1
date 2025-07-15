@@ -5,7 +5,7 @@ import Productos from '../pages/Productos';
 import Clientes from '../pages/Clientes';
 import Ventas from '../pages/Ventas';
 import Usuarios from '../pages/Usuarios';
-import MainLayout from '../layouts/MainLayout';
+import PublicLayout from '../layouts/PublicLayout';
 import ProtectedRoute from './ProtectedRoute';
 import RootRedirect from './RootRedirect';
 
@@ -18,59 +18,46 @@ const Router = () => {
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         
-        {/* Ruta de demostración del MainLayout (sin autenticación) */}
-        <Route path="/demo" element={
-          <MainLayout>
+        {/* Ruta raíz - inicia directamente en PublicLayout con Dashboard */}
+        <Route path="/" element={
+          <PublicLayout>
             <Dashboard />
-          </MainLayout>
+          </PublicLayout>
         } />
         
-        {/* Ruta raíz - redirige según estado de autenticación */}
-        <Route path="/" element={<RootRedirect />} />
-        
-        {/* Rutas protegidas con MainLayout */}
+        {/* Rutas públicas con PublicLayout (acceso directo sin autenticación) */}
         
         <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <MainLayout>
-              <Dashboard />
-            </MainLayout>
-          </ProtectedRoute>
+          <PublicLayout>
+            <Dashboard />
+          </PublicLayout>
         } />
         
         <Route path="/productos" element={
-          <ProtectedRoute>
-            <MainLayout>
-              <Productos />
-            </MainLayout>
-          </ProtectedRoute>
+          <PublicLayout>
+            <Productos />
+          </PublicLayout>
         } />
         
         <Route path="/clientes" element={
-          <ProtectedRoute>
-            <MainLayout>
-              <Clientes />
-            </MainLayout>
-          </ProtectedRoute>
+          <PublicLayout>
+            <Clientes />
+          </PublicLayout>
         } />
         
         <Route path="/ventas" element={
-          <ProtectedRoute>
-            <MainLayout>
-              <Ventas />
-            </MainLayout>
-          </ProtectedRoute>
+          <PublicLayout>
+            <Ventas />
+          </PublicLayout>
         } />
         <Route path="/usuarios" element={
-          <ProtectedRoute>
-            <MainLayout>
-              <Usuarios />
-            </MainLayout>
-          </ProtectedRoute>
+          <PublicLayout>
+            <Usuarios />
+          </PublicLayout>
         } />
         
-        {/* Ruta por defecto - redirige al login si no está autenticado */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        {/* Ruta por defecto - redirige al dashboard */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

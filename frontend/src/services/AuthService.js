@@ -32,20 +32,13 @@ class AuthService {
 
   // Simular autenticación con credenciales
   static async authenticate(credentials) {
-    // Credenciales de prueba para demostración
-    const testCredentials = {
-      username: 'admin',
-      password: 'admin'
-    };
-    
-    // Validación de credenciales
+    // Simulación de validación
     if (credentials.username && credentials.password) {
-      // Permitir cualquier credencial para demostración
       const userData = {
         id: 1,
         username: credentials.username,
         email: `${credentials.username}@example.com`,
-        role: credentials.username === testCredentials.username ? 'admin' : 'user',
+        role: 'admin',
         loginTime: new Date().toISOString()
       };
       
@@ -53,7 +46,7 @@ class AuthService {
       return userData;
     }
     
-    throw new Error('Por favor ingrese usuario y contraseña');
+    throw new Error('Credenciales inválidas');
   }
 
   // Verificar token/sesión (para futuras implementaciones)

@@ -17,14 +17,6 @@ const Dashboard = () => {
         <small className="text-muted">Resumen general del sistema</small>
       </div>
 
-      {/* Información de demostración */}
-      <div className="alert alert-info mb-4">
-        <h5><i className="bi bi-info-circle me-2"></i>¡Bienvenido al MainLayout!</h5>
-        <p className="mb-2">Esta es la interfaz principal del sistema con MainLayout funcionando correctamente.</p>
-        <p className="mb-2"><strong>Para autenticarte:</strong> Ve a "Iniciar Sesión" en el menú lateral</p>
-        <p className="mb-0"><strong>Credenciales de prueba:</strong> Usuario: <code>admin</code> | Contraseña: <code>admin</code></p>
-      </div>
-
       {/* Tarjetas de métricas */}
       <div className="row mb-4">
         {metrics.map((metric, index) => (
